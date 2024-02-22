@@ -1,0 +1,492 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Washday</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static "assets/css/style.css" %} assets/img/washday.png" rel="icon">
+  <link href="{% static "assets/img/washday.png" %} " rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static "assets/vendor/animate.css/animate.min.css" %} " rel="stylesheet">
+  <link href="{% static "assets/vendor/aos/aos.css" %} " rel="stylesheet">
+  <link href="{% static "assets/vendor/bootstrap/css/bootstrap.min.css" %} " rel="stylesheet">
+  <link href="{% static "assets/vendor/bootstrap-icons/bootstrap-icons.css" %} " rel="stylesheet">
+  <link href="{% static "assets/vendor/boxicons/css/boxicons.min.css" %}" rel="stylesheet">
+  <link href="{% static "assets/vendor/glightbox/css/glightbox.min.css"%} " rel="stylesheet">
+  <link href="{% static "assets/vendor/swiper/swiper-bundle.min.css" %} " rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static "assets/css/style.css" %} " rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope-fill"></i><a href="#">contact@washday.com</a>
+        <i class="bi bi-phone-fill phone-icon"></i> +263 771 418 380
+      </div>
+      <div class="social-links d-none d-md-block">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="index.html">Washday</a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto" href="#services">Services</a></li>
+            <li><a class="nav-link scrollto" href="#timeline">How it works</a></li>
+            <li><a class="nav-link scrollto" href="#about">Washday Repeat</a></li>
+            <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+            <li style="margin-left: 10px;"><a href="{% url 'main:clientlogin' %}"><button type="button" class="btn btn-info rounded-pill">Login</button></a></li>
+            <li><a href="{% url 'main:register' %}"><button type="button" class="btn btn-success rounded-pill">Sign Up</button></a></li>
+        </ul>
+
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+    <!-- .navbar -->
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+        <div class="carousel-inner" role="listbox">
+
+          <!-- Slide 1 -->
+          <div class="carousel-item active" style="background-image: url('{% static "assets/img/slide/slide-1.jpg" %} ');">
+            <div class="carousel-container">
+              <div class="carousel-content container">
+                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Washday</span></h2>
+                <p class="animate__animated animate__fadeInUp">Washday picks up, cleans, and delivers your laundry. Just place your order, and let us take care of the rest.</p>
+                <a href="{% url 'main:mybag'%}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Schedule a Pickup</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-item" style="background-image: url('{% static "assets/img/slide/slide-2.jpg" %} ');">
+            <div class="carousel-container">
+              <div class="carousel-content container">
+                <h2 class="animate__animated animate__fadeInDown">Say Goodbye to Laundry Day</h2>
+                <p class="animate__animated animate__fadeInUp">And say hello to hassle-free living! Let Washday transform your routine for the better</p>
+                <a href="{% url 'main:mybag'%}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Schedule a Pickup</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-item" style="background-image: url('{% static "assets/img/slide/slide-3.jpg" %} ');">
+            <div class="carousel-container">
+              <div class="carousel-content container">
+                <h2 class="animate__animated animate__fadeInDown">Convenient Scheduling,  <span>Save Time & Money</span></h2>
+                <p class="animate__animated animate__fadeInUp">In today's hustle and bustle, your precious free moments deserve to be spent on things that truly matter. Say goodbye to mundane laundry tasks and reclaim your time with Washday – because your time is too valuable to waste on washing clothes!</p>
+                <a href="{% url 'main:mybag'%}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Schedule a Pickup</a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Services</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3 col-md-6 icon-box" data-aos="fade-up">
+            <div >
+              <img src="{% static "assets/img/clothes.png" %}" alt="Shopping basket icon" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+            </div>
+
+            <h4 class="title"><a href="">Wash and Fold</a></h4>
+            <p class="description">Leave the laundry to us! Our Wash and Fold service takes the hassle out of laundry day, giving you more time for the things you love.</p>
+          </div>
+          <div class="col-lg-3 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div >
+              <img src="{% static "assets/img/suits.png" %}" alt="Shopping basket icon" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+            </div>
+            <h4 class="title"><a href="">Dry Cleaning</a></h4>
+            <p class="description">From delicate fabrics to stubborn stains, our Dry Cleaning service handles it all with care and precision.</p>
+          </div>
+          <div class="col-lg-3 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+            <div >
+              <img src="{% static "assets/img/iron-board.png" %}" alt="Shopping basket icon" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+            </div>
+            <h4 class="title"><a href="">Wash and Iron</a></h4>
+            <p class="description">Ironing woes be gone! Our Wash and Iron service delivers crisp, wrinkle-free perfection straight to your closet.</p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+            <div >
+              <img src="{% static "assets/img/laundry-machine.png" %}" alt="Shopping basket icon" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+            </div>
+            <h4 class="title"><a href="">Commercial Laundry</a></h4>
+            <p class="description">Experience efficiency at its finest with our Commercial Laundry service – tailored solutions for businesses of all sizes.</p>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+          </div>
+
+          <div class="col-lg-3 col-md-6 icon-box" data-aos="fade-up">
+            <div >
+              <img src="{% static "assets/img/shoes.png" %}" alt="Shopping basket icon" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+            </div>
+            <h4 class="title"><a href="">Shoe Cleaning</a></h4>
+            <p class="description">Leave the laundry to us! Our Wash and Fold service takes the hassle out of laundry day, giving you more time for the things you love.</p>
+          </div>
+          <div class="col-lg-3 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div >
+              <img src="{% static "assets/img/bear.png" %}" alt="Shopping basket icon" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+            </div>
+            <h4 class="title"><a href="">Stuffed Toy Cleaning</a></h4>
+            <p class="description">From delicate fabrics to stubborn stains, our Dry Cleaning service handles it all with care and precision.</p>
+          </div>
+          <div class="col-lg-3 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+          </div>
+
+
+
+        </div>
+        <div id="timeline">
+        {% include "main/timeline.html" %}</div>
+
+      </div>
+
+    </section><!-- End Services Section -->
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row no-gutters">
+          <div>
+            <div class="row no-gutters">
+              <div class="col-lg-8 d-flex flex-column justify-content-center about-content">
+                <p class="section-header text-center wow zoomIn ">Washday Repeat</p>
+              </div>
+              <div class="col-lg-4 d-flex flex-column justify-content-center about-content">
+                <a href="{% url 'main:register' %}"><button type="button" class="btn btn-outline-success rounded-pill">Get Started with Washday Repeat</button></a></div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-7 d-flex flex-column justify-content-center about-content">
+
+            <div class="section-title">
+
+              <h2>Tired of constantly rescheduling laundry pickups? Washday Repeat got you!</h2>
+              <p>How Washday Repeat Works :</p>
+            </div>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bi bi-bookmark-check"></i></div>
+              <h4 class="title">Set and Forget</h4>
+              <p class="description">Simply select your preferred pickup day – whether it's every Friday, every other Monday, or any other day that suits your schedule.</p>
+            </div>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bi bi-alarm"></i></div>
+              <h4 class="title">Automatic Reminders</h4>
+              <p class="description">Receive timely reminders before each scheduled pickup, ensuring you never miss a laundry day again.</p>
+            </div>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bi bi-pencil"></i></div>
+              <h4 class="title">Flexible Adjustments</h4>
+              <p class="description">Need to make changes to your pickup schedule? No problem! Easily update your preferences directly from the app.</p>
+            </div>
+
+          </div>
+          <div class="col-lg-5 d-flex flex-column justify-content-center about-content">
+
+          </div>
+        </div>
+      </div>
+    </section><!-- End About Us Section -->
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="accordion accordion-flush" id="faq-group-3">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" data-bs-target="#faqsThree-1" type="button" data-bs-toggle="collapse">
+                What areas do you service?              </button>
+            </h2>
+            <div id="faqsThree-1" class="accordion-collapse collapse" data-bs-parent="#faq-group-3">
+              <div class="accordion-body">
+                What are your pricing options?              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" data-bs-target="#faqsThree-2" type="button" data-bs-toggle="collapse">
+                What payment methods do you accept?              </button>
+            </h2>
+            <div id="faqsThree-2" class="accordion-collapse collapse" data-bs-parent="#faq-group-3">
+              <div class="accordion-body">
+                In minus quia impedit est quas deserunt deserunt et. Nulla non quo dolores minima fugiat aut saepe aut inventore. Qui nesciunt odio officia beatae iusto sed voluptatem possimus quas. Officia vitae sit voluptatem nostrum a.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" data-bs-target="#faqsThree-3" type="button" data-bs-toggle="collapse">
+                What are your pricing options?               </button>
+            </h2>
+            <div id="faqsThree-3" class="accordion-collapse collapse" data-bs-parent="#faq-group-3">
+              <div class="accordion-body">
+                Voluptates magni amet enim perspiciatis atque excepturi itaque est. Sit beatae animi incidunt eum repellat sequi ea saepe inventore. Id et vel et et. Nesciunt itaque corrupti quia ducimus. Consequatur maiores voluptatum fuga quod ut non fuga.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" data-bs-target="#faqsThree-4" type="button" data-bs-toggle="collapse">
+                Can I schedule recurring laundry pickups (e.g., weekly, bi-weekly)?              </button>
+            </h2>
+            <div id="faqsThree-4" class="accordion-collapse collapse" data-bs-parent="#faq-group-3">
+              <div class="accordion-body">
+                Numquam ut reiciendis aliquid. Quia veritatis quasi ipsam sed quo ut eligendi et non. Doloremque sed voluptatem at in voluptas aliquid dolorum.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" data-bs-target="#faqsThree-5" type="button" data-bs-toggle="collapse">
+                Do I need to separate my clothes by color or fabric?              </button>
+            </h2>
+            <div id="faqsThree-5" class="accordion-collapse collapse" data-bs-parent="#faq-group-3">
+              <div class="accordion-body">
+                Aut necessitatibus maxime quis dolor et. Nihil laboriosam molestiae qui molestias placeat corrupti non quo accusamus. Nemo qui quis harum enim sed. Aliquam molestias pariatur delectus voluptas quidem qui rerum id quisquam. Perspiciatis voluptatem voluptatem eos. Vel aut minus labore at rerum eos.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+
+    <!-- ======= Contact Us Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact Us</h2>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6 d-flex" data-aos="fade-up">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3>Our Address</h3>
+              <p>287 25th Street, Borrowdale Hatcliffe, Harare</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 d-flex" data-aos="fade-up" data-aos-delay="100">
+            <div class="info-box">
+              <i class="bx bx-envelope"></i>
+              <h3>Email Us</h3>
+              <p>contact@washday.com</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 d-flex" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box ">
+              <i class="bx bx-phone-call"></i>
+              <h3>Call Us</h3>
+              <p>+263 771 418 380<br></p>
+            </div>
+          </div>
+
+          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="300">
+            <form action="" method="post" role="form" class="php-email-form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-lg-6 form-group">
+                  {{ form.name }}
+                </div>
+                <div class="col-lg-6 form-group">
+                  {{ form.email }}
+                </div>
+              </div>
+              <div class="form-group">
+                {{ form.subject }}
+              </div>
+              <div class="form-group">
+                {{ form.message }}
+              </div>
+
+              <div class="col-md-12 text-center">
+                <div style="display:none" class="alert alert-success alert-dismissible fade show" role="alert">
+                  A simple success alert—check it out!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <div style="display:none" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  A simple danger alert—check it out!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <button id="submit" type="submit" class="btn btn-success rounded-pill">Send Message Yay </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Us Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>Washday</h3>
+            <p>
+              287 25th Street, <br>
+              Borrowdale, Harare<br><br>
+              <strong>Phone:</strong> +263 771 418 380<br>
+              <strong>Email:</strong> contact@washday.com<br>
+            </p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Schedule a Pickup</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Login/Signup</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Resources</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Blog</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">FAQ</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Laundry Glossary</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>About</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Why Choose Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Pricing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Impact</a></li>
+            </ul>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Washday</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static "assets/vendor/purecounter/purecounter_vanilla.js" %}"></script>
+  <script src="{% static "assets/vendor/aos/aos.js" %}"></script>
+  <script src="{% static "assets/vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "assets/vendor/glightbox/js/glightbox.min.js" %}"></script>
+  <script src="{% static "assets/vendor/isotope-layout/isotope.pkgd.min.js" %}"></script>
+  <script src="{% static "assets/vendor/swiper/swiper-bundle.min.js" %}"></script>
+  <script src="{% static "assets/vendor/php-email-form/validate.js" %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static "assets/js/main.js" %}"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

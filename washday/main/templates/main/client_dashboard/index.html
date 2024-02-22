@@ -1,0 +1,87 @@
+{% extends 'main/client_dashboard/layout.html' %}
+{% load static %}
+
+{% block main %}
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'main:dashboard' %}">Home</a></li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section profile">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <!-- Recent Bags -->
+          <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+              <div class="card-body">
+                <h5 class="card-title">Recent Orders <span>| </span></h5>
+
+                <div class="table-responsive">
+
+                  <table class="table table-borderless datatable w-100 d-inline-block">
+                    <thead>
+                      <tr>
+                        <th scope="col">Order#</th>
+                        <th scope="col">Pickup Date</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Payment Method</th>
+                        <th scope="col">Order Status</th>
+                        <th scope="col">Payment Status</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order in orders %}
+                        <tr>
+                          <th scope="row"><a href="{% url 'main:view_bag' orderID=order.orderID %}" data-id="{{ order.orderID}}">#{{ order.orderID}}</a></th>
+                          <td>{{ order.pickup_date}}</td>
+                          <td><span class=" badge {% if order.priority == 'Normal' %}bg-success{% elif order.priority == 'Urgent' %}bg-warning{% else %}bg-danger{% endif %}" id="priority">{{ order.priority }}</span></td>
+                          <td>${{ order.total_price }}</td>
+                          <td>{{ order.payment_method }}</td>
+                          <td><span class="badge {% if order.order_status == 'Pending' %}bg-warning{% elif order.order_status == 'Processing' %}bg-info{% else %}bg-success{% endif %}">{{order.order_status }}</span></td>
+                          <td><span class="badge {% if order.payment_status == 'Pending' %}bg-warning{% elif order.payment_status == 'Processing' %}bg-info{% else %}bg-success{% endif %}">{{ order.payment_status }}</span></td>
+                          <td>
+                            <div class="btn-group" role="group" aria-label="Order Actions">
+                              <a href="#" class="btn btn-primary"><i class="bi bi-eye"></i></a>
+                              <a href="#" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                            </div>
+                          </td>
+
+                        </tr>
+                        <!-- Add more table rows here if needed -->
+                      {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div><!-- End Recent Bags -->
+
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+  });
+
+</script>

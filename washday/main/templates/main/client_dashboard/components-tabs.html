@@ -1,0 +1,304 @@
+{% extends 'main/client_dashboard/base.html' %}
+{% load static %}
+
+{% block left_content %}
+<section class="section">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Laundry Categories</h5>
+
+          <!-- Default Tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Men" type="button" role="tab" aria-controls="Men" aria-selected="true">Men's Wear</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#Women" type="button" role="tab" aria-controls="Women" aria-selected="false">Women's Wear</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#Household" type="button" role="tab" aria-controls="contact" aria-selected="false">Household Linen</button>
+            </li>
+          </ul>
+
+          <div class="tab-content pt-2" id="myTabContent">
+            {% for category, items in categories.items %}
+              <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="{{ category }}" role="tabpanel" aria-labelledby="home-tab">
+                <ul class="list-group list-group-numbered">
+                  {% for item in items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">
+                        <div class="fw-bold">{{ item.name }}</div>
+                        <span class="text-muted">Unit Price: ${{ item.unit_price }}</span>
+                      </div>
+                      <span class="badge bg-primary rounded-pill"><button class="add-to-cart-btn" data-name="{{ item.name }}" data-price="{{ item.unit_price }}" data-myid="{{ item.itemID }}">Add to Bag</button></span>
+                    </li>
+                  {% endfor %}
+                </ul><!-- End with custom content -->
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Your Bag</h5>
+          <div class="cart-table-wrap">
+            <table class="cart-table" id="cart-table">
+              <thead class="cart-table-head">
+                <tr class="table-head-row">
+                  <th class="product-remove"></th>
+                  <th class="product-itemID" style="display:none">itemID</th>
+                  <th class="product-name">Name</th>
+                  <th class="product-price">Price</th>
+                  <th class="product-quantity">Quantity</th>
+                  <th class="product-total">Total</th>
+                </tr>
+              </thead>
+              <tbody id="cart-body">
+                <!-- Cart items will be dynamically added here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+            <!-- Total Section -->
+
+         <div class="card mt-4">
+          <div class="card-body">
+              <h5 class="card-title">Totals</h5>
+              <div id="totals-content">
+                  <p>Total Items: <span id="total-items">0</span></p>
+                  <p>Total Price: $<span id="total-price">0.00</span></p>
+              </div><br>
+              <div class="col-sm-10 offset-sm-2">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <button type="submit" class="btn btn-primary" id="submit" data-route="{% url 'main:mybag' %}">Submit</button>
+                {% comment %} <form id="form-submit">
+                  <!-- CSRF token input field -->
+                  <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                  <button type="submit" class="btn btn-primary" id="submit" data-route="{% url 'main:mybag' %}">Submit</button>
+                </form> {% endcomment %}
+
+              </div>
+
+          </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function hello() {
+    alert("clicked")
+  }
+
+  // JavaScript to handle adding items to the cart
+  document.addEventListener('DOMContentLoaded', function() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', addToCart);
+    });
+
+    //by default submit button should be disabled
+    document.querySelector('#submit').disabled=false;
+
+    document.getElementById('total-price').textContent.onchange= () => {
+      if (parseFloat(document.getElementById('total-price').textContent) === 0) {
+        document.querySelector('#submit').disabled=true;
+
+      }else {
+        document.querySelector('#submit').disabled=false;
+
+      }
+
+    }
+
+    //listen for the submit of the bag
+    document.querySelector('#submit').onclick= function (){
+      sendBagDetailsToBackend();
+    }
+
+
+    // Attach event listener to a parent element that exists in the DOM
+    document.addEventListener('change', function(event) {
+      const target = event.target;
+
+      // Check if the changed element is a quantity input field
+      if (target.classList.contains('qnty')) {
+          // Get the parent row of the input field
+          const parentRow = target.closest('.table-body-row');
+
+          // Find the product name element within the row
+          const productNameElement = parentRow.querySelector('.product-name');
+
+          // Get the text content of the product name element
+          const productName = productNameElement.textContent;
+
+          //price tracking
+          const priceElement = parentRow.querySelector('.product-price');
+          const price = parseFloat(priceElement.innerText.replace('$', ''));
+
+          const currentTotalElement = parentRow.querySelector('.product-total');
+          const total = price * parseFloat(target.value);
+
+          const currentTotal = parseFloat(currentTotalElement.textContent.replace('$', ''));
+          const priceChange = total - currentTotal;
+
+          currentTotalElement.innerHTML = `$${total.toFixed(2)}`;
+
+          //updating the grand total cart
+          const grandTotalElement = document.getElementById('total-price');
+          const currentGrandTotal = parseFloat(grandTotalElement.textContent.replace('$', ''));
+          const newGrandTotal = currentGrandTotal + priceChange;
+          grandTotalElement.textContent = `$${newGrandTotal.toFixed(2)}`;
+
+          //updating the grand total cart quanity
+
+          const items= document.querySelectorAll('#bag-qnty')
+          let newQnty=0;
+          items.forEach(item => {
+            newQnty += parseInt(item.value);
+          });
+
+          const qntyTotalElement= document.getElementById('total-items');
+          qntyTotalElement.textContent= `${newQnty}`;
+          //end updating grand total of the bag quantity
+
+
+      }
+    });
+
+    function addToCart(event) {
+      const itemName = event.target.dataset.name;
+      const itemID= event.target.dataset.myid;
+      console.log(itemID);
+      const itemPrice = parseFloat(event.target.dataset.price);
+      const cartBody = document.getElementById('cart-body');
+
+      let existingItem = document.querySelector(`#cart-body tr[data-name="${itemName}"]`);
+
+      if (existingItem) {
+        const quantityInput = existingItem.querySelector('.product-quantity input');
+        const currentQuantity = parseInt(quantityInput.value);
+        quantityInput.value = currentQuantity + 1;
+        updateCartItemTotal(existingItem);
+      } else {
+        const newRow = document.createElement('tr');
+        newRow.classList.add('table-body-row');
+        newRow.dataset.name = itemName;
+        newRow.innerHTML = `
+          <td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
+          <td id="product-itemID" class="product-itemID" style=" display:none">${itemID}</td>
+          <td class="product-name">${itemName}</td>
+          <td class="product-price">$${itemPrice}</td>
+          <td class="product-quantity"><input id="bag-qnty" class="qnty" type="number" value="1" min="1"></td>
+          <td id="subtotal" class="product-total">${itemPrice}</td>
+
+        `;
+        cartBody.appendChild(newRow);
+
+        //update grant total for the cart after adding new row
+        const grandTotalElement = document.getElementById('total-price');
+        const currentGrandTotal = parseFloat(grandTotalElement.textContent.replace('$', ''));
+        const newGrandTotal= currentGrandTotal + parseFloat(itemPrice);
+        grandTotalElement.textContent = `$${newGrandTotal.toFixed(2)}`;
+
+        //updating the cart quantity
+        const qntyTotalElement= document.getElementById('total-items');
+        const qntyGrandTotal= parseInt(qntyTotalElement.textContent);
+        const newQntyTotal= qntyGrandTotal + 1;
+        qntyTotalElement.textContent= `${newQntyTotal}`
+      }
+
+    }
+
+    function updateCartItemTotal(row) {
+      const priceCell = row.querySelector('.product-price');
+      const quantityInput = row.querySelector('.product-quantity input');
+      const totalCell = row.querySelector('.product-total');
+      const itemPrice = parseFloat(priceCell.textContent.replace('$', ''));
+      const quantity = parseInt(quantityInput.value);
+      totalCell.textContent = `$${itemPrice * quantity}`;
+
+      //update grant total for the cart
+      const grandTotalElement = document.getElementById('total-price');
+      const currentGrandTotal = parseFloat(grandTotalElement.textContent.replace('$', ''));
+      const newGrandTotal= currentGrandTotal + itemPrice;
+      grandTotalElement.textContent = `$${newGrandTotal.toFixed(2)}`;
+
+      //update the grant total quantity of the things in the bag
+      const qntyTotalElement= document.getElementById('total-items');
+      const qntyGrandTotal= parseInt(qntyTotalElement.textContent);
+      const newQntyTotal= qntyGrandTotal + 1;
+      qntyTotalElement.textContent= `${newQntyTotal}`
+    }
+
+    function sendBagDetailsToBackend() {
+      const cartItems = document.querySelectorAll('#cart-body .table-body-row');
+      const bagDetails = [];
+      cartItems.forEach(item => {
+        const itemName = item.querySelector('.product-name').textContent;
+        const itemPrice = parseFloat(item.querySelector('.product-price').textContent.replace('$', ''));
+        const quantity = parseInt(item.querySelector('.product-quantity input').value);
+        const itemID= item.querySelector('.product-itemID').textContent;
+        bagDetails.push({ item_id:itemID, name: itemName, price: itemPrice, quantity: quantity });
+      });
+
+      //getting the total quantity of the items ordered
+      const totalItems = parseInt(document.getElementById('total-items').textContent);
+
+      //get the total price and removing the dollar sign
+      const grandTotalElement = document.getElementById('total-price');
+      const currentGrandTotal = parseFloat(grandTotalElement.textContent.replace('$', ''));
+      const totalPrice = currentGrandTotal;
+
+      const data = {
+        bagDetails: bagDetails,
+        totalItems: totalItems,
+        totalPrice: totalPrice
+      };
+
+
+      fetch('http://127.0.0.1:8000/mybag', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href="http://127.0.0.1:8000/place-order"
+        if (!response.ok){
+          alert("Something went wrong happened please try again")
+        }
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Handle successful response from backend if needed
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle error
+        console.error('Error:', error);
+      });
+
+    }
+
+  })
+
+
+
+
+</script>
+
+{% endblock %}

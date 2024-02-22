@@ -1,0 +1,85 @@
+{% extends 'main/client_dashboard/layout.html' %}
+{% load static %}
+
+{% block main %}
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'main:dashboard' %}">Home</a></li>
+        <li class="breadcrumb-item">My Bags</li>
+        <li class="breadcrumb-item">{{ order.orderID }}</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section profile">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <!-- Bag Listing -->
+            <div class="col-12">
+                <div class="card top-selling overflow-auto">
+                <div class="card-body pb-0">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h5 class="card-title">Bag <span>#{{ order.orderID }}</span></h5>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="card-title">Pickup Date <span>{{ order.pickup_date }}</span></h5>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="card-title">Bag Total <span>${{ order.total_price }}</span></h5>
+                        </div>
+
+                        <div style="padding-top:20px" class="col-sm-3">
+                            <span>Bag Status:</span>
+                            <span class="badge {% if order.order_status == 'Pending' %}bg-warning{% elif order.order_status == 'Processing' %}bg-info{% else %}bg-success{% endif %}">{{order.order_status }}</span>
+                        </div>
+                    </div>
+
+                    <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Other</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bag_detail in bag_details %}
+                        <tr>
+                        <td><a href="" class="text-primary fw-bold">{{ bag_detail.item.name }}</a></td>
+                        <td>{{ bag_detail.quantity }}</td>
+                        <td class="fw-bold">${{ bag_detail.price }}</td>
+                        <td>Other</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+                </div>
+            </div><!-- End Top Selling -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+  });
+
+</script>
+
+<!-- Display order information -->
+<h2>Order Details</h2>
+<p>Order ID: </p>
+<p>Pickup Date: {{ order.pickup_date }}</p>
+<!-- Add more order details as needed -->
