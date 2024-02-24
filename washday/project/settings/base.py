@@ -4,7 +4,12 @@ SECRET_KEY = NotImplemented
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '127.0.0.1', '0.0.0.0', 'localhost', 'washday.site', 'https://washday.site', 'https://www.washday.site'
+]
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 # Application definition
 
