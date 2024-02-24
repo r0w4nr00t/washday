@@ -6,13 +6,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Login |Washday</title>
+  <title>Login | Washday</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="{% static "myassets/img/favicon.png" %} " rel="icon">
-  <link href="{% static "myassets/img/apple-touch-icon.png" %} " rel="apple-touch-icon">
+  <link href="{% static "myassets/img/favicon.png" %} " rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -44,7 +44,7 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="{% url 'main:index' %}" class="logo d-flex align-items-center w-auto">
-                  <img src="{% static "assets/img/washday.png" %} " alt="">
+                  {% comment %} <img src="{% static "assets/img/washday.png" %} " alt=""> {% endcomment %}
                   <span class="d-none d-lg-block">Washday</span>
                 </a>
               </div><!-- End Logo -->
@@ -58,8 +58,9 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form action="{% url 'main:clientlogin' %}" method="post" class="row g-3 needs-validation" novalidate>
+                  <form action="{% url 'main:clientlogin' %}" method="post" id="login-form" class="row g-3 needs-validation" novalidate>
                     {% csrf_token %}
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
@@ -85,7 +86,7 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <button class="btn btn-primary w-100" type="submit" id='login-btn'>Login</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Don't have account? <a href="{% url 'main:register' %}">Create an account</a></p>
@@ -119,6 +120,37 @@
 
   <!-- Template Main JS File -->
   <script src="{% static "myassets/js/main.js" %} "></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('#login-form').onsubmit = function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(document.querySelector('#login-form'));
+            const login_url = "{% url 'main:clientlogin' %}";
+
+            fetch(login_url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': "{{ csrf_token }}"
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                  window.location.href = "{% url 'main:dashboard' %}";
+
+                } else {
+                  alert('Login unsuccessful. Please correct the details and try again');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        };
+    });
+</script>
+
 
 </body>
 

@@ -57,3 +57,19 @@ class BagDetail(models.Model):
     item = models.ForeignKey(LaundryItem, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+class CreditCard(models.Model):
+    card_number = models.CharField(blank=False, max_length=16, primary_key=True)
+    cvv = models.IntegerField(blank=False)
+    expiry_date = models.DateField(blank=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='credit_card')
+
+
+class Subscription(models.Model):
+    SUBSCRIPTION_CHOICES = [('Weekly', 'Weekly'), ('Bi-weekly', 'Bi-weekly'), ('Monthly', 'Monthly')]
+    SUBSCRIPTION_STATUS_CHOICES = [('Playing', 'Playing'), ('Paused', 'Paused'), ('Trashed', 'Trashed')]
+    subID = models.CharField(max_length=10, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    frequency = models.CharField(choices=SUBSCRIPTION_CHOICES, max_length=9)
+    status = models.CharField(choices=SUBSCRIPTION_STATUS_CHOICES, max_length=7)

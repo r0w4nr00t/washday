@@ -31,6 +31,23 @@ def order_number_generator():
 
 
 def index(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            subject = f'{subject} {email} {name} '
+            message = form.cleaned_data['message']
+
+            send_mail(
+                subject,
+                message,
+                'r0w4nr00t@gmail.com',
+                ['munya@raffine.site'],
+                fail_silently=False,
+            )
+            return render(request, 'main/index.html', {'message': 'success'})
     return render(request, 'main/index.html', {
         'form': ContactForm(),
         'subscribeForm': SubscribeForm(),
@@ -45,12 +62,15 @@ def clientlogin(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
+            print(f'username is {username} and password is {password}')
+
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('main:dashboard'))
+                request.session['username'] = user.username
+                return JsonResponse({'success': True, 'username': user.username})
             else:
-                return HttpResponse('Sorry that did not work please try again ')
+                return JsonResponse({'success': False, 'message': 'Invalid username or password'}, status=400)
 
         else:
             return render(request, 'main/pages-login.html', {'form': form})
@@ -77,7 +97,13 @@ def register(request):
                     username=username,
                     password=password,
                     phone=phone_number,
-                ),
+                )
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return HttpResponseRedirect(reverse('main:dashboard'))
+                else:
+                    return HttpResponse('Sorry that did not work please try again ')
             except ImportError:
                 return HttpResponse('User already exists')
 
@@ -89,7 +115,8 @@ def register(request):
 
 @login_required(login_url='/pages/login')
 def client_dashboard(request):
-    user_orders = Order.objects.filter(user=request.user)
+    username = request.session.get('username')
+    user_orders = Order.objects.filter(user=User.objects.get(username=username))
     return render(request, 'main/client_dashboard/index.html', {'orders': user_orders})
 
 
@@ -119,6 +146,7 @@ def bag(request):
         return render(request, 'main/client_dashboard/components-tabs.html', {'categories': categories})
 
 
+@login_required(login_url='/pages/login')
 def new_order(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -185,7 +213,9 @@ def place_order(bag_data, pickup_data, user):
         subject,
         message,
         'r0w4nr00t@gmail.com',
-        ['jordanmarumure@gmail.com', 'hitol.homes@gmail.com'],
+        [
+            'munya@raffine.site',
+        ],
         fail_silently=False,
     )
 
@@ -211,14 +241,18 @@ def help_center(request):
             subject = subject + ' - ' + email + ' - ' + name
             message = form.cleaned_data['message']
 
-            send_mail(
-                subject,
-                message,
-                'r0w4nr00t@gmail.com',
-                ['jordanmarumure@gmail.com'],
-                fail_silently=False,
-            )
-            return render(request, 'main/client_dashboard/pages-contact.html', {'message': 'success'})
+            if send_mail(
+                    subject,
+                    message,
+                    'r0w4nr00t@gmail.com',
+                ['munya@raffine.site'],  # noqa: E131
+                    fail_silently=False,
+            ):
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False})
+
+        return render(request, 'main/client_dashboard/pages-contact.html', {'message': 'success'})
 
     return render(request, 'main/client_dashboard/pages-contact.html', {
         'form': ContactForm(),

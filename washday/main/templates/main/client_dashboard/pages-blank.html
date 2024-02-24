@@ -3,43 +3,105 @@
 
 {% block main %}
 <main id="main" class="main">
-
-  <div class="pagetitle">
-    <h1>Blank Page</h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item">Pages</li>
-        <li class="breadcrumb-item active">Blank</li>
-      </ol>
-    </nav>
-  </div><!-- End Page Title -->
-
   <section class="section">
     <div class="row">
-      <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Manange your Billing</h5>
 
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Example Card</h5>
-            <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-          </div>
+          <!-- Default Tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Subscriptions</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Payment Methods</button>
+            </li>
+          </ul>
+          <div class="tab-content pt-2" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+
+                    <!-- Left side columns -->
+                    <div class="col-sm-8">
+                      <div class="row">
+                        <h5 class="card-title">Your Washday Subscriptions</h5>
+                      </div>
+                    </div>
+                    <!-- Left side columns -->
+                    <div class="col-sm-2">
+                      <div class="row" style='padding-top:5%'>
+                        <button type="button" class="btn btn-primary" id='add-new-subscription'><i class="bi bi-calendar-plus me-1"></i> Add New</button>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!-- Subscriptions content -->
+                  <ol class="list-group list-group-numbered">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">
+                        <div class="fw-bold">Washday Repeat</div>
+                        Weekly
+                      </div>
+                      <a href="#" class="btn btn-primary"><i class="bi bi-eye"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                    </li>
+                  </ol><!-- End Subscriptions  content -->
+
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="col-lg-8">
+                <div class="row">
+
+                  <!-- Sales Card -->
+                  <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+
+                      <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                          <li class="dropdown-header text-start">
+                            <h6>Filter</h6>
+                          </li>
+
+                          <li><a class="dropdown-item" href="#">Today</a></li>
+                          <li><a class="dropdown-item" href="#">This Month</a></li>
+                          <li><a class="dropdown-item" href="#">This Year</a></li>
+                        </ul>
+                      </div>
+
+                      <div class="card-body">
+                        <h5 class="card-title">Visa <span>| ...1234</span></h5>
+
+                        <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-cart"></i>
+                          </div>
+                          <div class="ps-3">
+                            <h6>145</h6>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div><!-- End Sales Card -->
+
+                </div>
+              </div>
+            </div>
+          </div><!-- End Default Tabs -->
+
         </div>
-
       </div>
 
-      <div class="col-lg-6">
-
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Example Card</h5>
-            <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-          </div>
-        </div>
-
-      </div>
     </div>
   </section>
 
 </main><!-- End #main -->
+<script src="{% static "myassets/js/washday_repeat.js" %} "></script>
 {% endblock %}

@@ -1,1 +1,9 @@
-Project insructions will come here
+## Project setup
+
+Project setup instructions here.
+
+```bash
+mkdir -p local
+cp washday/project/settings/templates/settings.dev.py ./local/settings.dev.py
+cp washday/project/settings/templates/settings.unittests.py ./local/settings.unittests.py
+```

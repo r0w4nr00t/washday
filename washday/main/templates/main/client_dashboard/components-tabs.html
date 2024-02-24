@@ -78,11 +78,7 @@
               <div class="col-sm-10 offset-sm-2">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <button type="submit" class="btn btn-primary" id="submit" data-route="{% url 'main:mybag' %}">Submit</button>
-                {% comment %} <form id="form-submit">
-                  <!-- CSRF token input field -->
-                  <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                  <button type="submit" class="btn btn-primary" id="submit" data-route="{% url 'main:mybag' %}">Submit</button>
-                </form> {% endcomment %}
+
 
               </div>
 
@@ -264,8 +260,9 @@
         totalPrice: totalPrice
       };
 
-
-      fetch('http://127.0.0.1:8000/mybag', {
+      const mybag_url = "{% url 'main:mybag' %}";
+      const place_order_url = "{% url 'main:new_order' %}"
+      fetch(mybag_url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -276,7 +273,7 @@
       })
       .then(response => {
         if (response.ok) {
-          window.location.href="http://127.0.0.1:8000/place-order"
+          window.location.href = place_order_url
         if (!response.ok){
           alert("Something went wrong happened please try again")
         }

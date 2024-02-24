@@ -14,6 +14,17 @@ services:
     volumes:
       - postgresql-data:/var/lib/postgresql/data
 
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    environment:
+      WASHDAY_SETTINGS_DATABASES: '{"default":{"HOST":"db"}}'
+      WASHDAY_SETTINGS_LOCAL_SETTINGS_PATH: 'local/settings.prod.py'
+
 volumes:
   postgresql-data:
     driver: local

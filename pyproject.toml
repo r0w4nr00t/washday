@@ -16,6 +16,7 @@ pyyaml = "^6.0.1"
 django-phonenumber-field = "^7.3.0"
 phonenumbers = "^8.13.30"
 django-split-settings = "^1.2.0"
+whitenoise = "^6.6.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.2"

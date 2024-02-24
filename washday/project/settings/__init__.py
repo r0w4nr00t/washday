@@ -6,7 +6,9 @@ from split_settings.tools import include, optional  # type:ignore
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
-ENVVAR_SETTINGS_PREFIX = 'WASHDAYSETTINGS_'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+ENVVAR_SETTINGS_PREFIX = 'WASHDAY_SETTINGS_'
 LOCAL_SETTINGS_PATH = os.getenv(f'{ENVVAR_SETTINGS_PREFIX}LOCAL_SETTINGS_PATH')
 
 if not LOCAL_SETTINGS_PATH:
